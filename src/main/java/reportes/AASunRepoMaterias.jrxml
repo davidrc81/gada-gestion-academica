@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AASunRepoMaterias" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c392cf1a-1b6e-4c38-9168-f4417a2c1f0a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="AdapBaseGada"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="292"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="701"/>
+	<parameter name="ParamCodMat" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT basegada.materia.codmat,
+	basegada.materia.matnom,
+	basegada.materia.anio,
+	basegada.materia.plan,
+	basegada.materia.modulos,
+	basegada.materiacorrelativa.codmat1
+FROM basegada.materiacorrelativa
+	INNER JOIN basegada.materia ON 
+	 basegada.materiacorrelativa.codmatcorr = basegada.materia.codmat 
+WHERE basegada.materiacorrelativa.codmatcorr=$P{ParamCodMat}
+order by basegada.materia.anio,basegada.materia.matnom]]>
+	</queryString>
+	<field name="codmat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codmat"/>
+		<property name="com.jaspersoft.studio.field.label" value="codmat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+		<fieldDescription><![CDATA[código de la materia]]></fieldDescription>
+	</field>
+	<field name="matnom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="matnom"/>
+		<property name="com.jaspersoft.studio.field.label" value="matnom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+		<fieldDescription><![CDATA[nombre de la materia]]></fieldDescription>
+	</field>
+	<field name="anio" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="anio"/>
+		<property name="com.jaspersoft.studio.field.label" value="anio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+		<fieldDescription><![CDATA[año que se cursa 1,2,3 o 4.]]></fieldDescription>
+	</field>
+	<field name="plan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="plan"/>
+		<property name="com.jaspersoft.studio.field.label" value="plan"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+		<fieldDescription><![CDATA[resolución del plan(alfanumérico)]]></fieldDescription>
+	</field>
+	<field name="modulos" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="modulos"/>
+		<property name="com.jaspersoft.studio.field.label" value="modulos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+		<fieldDescription><![CDATA[cantidad de módulos de la materia]]></fieldDescription>
+	</field>
+	<field name="codmat1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codmat1"/>
+		<property name="com.jaspersoft.studio.field.label" value="codmat1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materiacorrelativa"/>
+		<fieldDescription><![CDATA[Código de materia]]></fieldDescription>
+	</field>
+	<group name="anio">
+		<groupExpression><![CDATA[$F{anio}]]></groupExpression>
+	</group>
+	<group name="codmat">
+		<groupExpression><![CDATA[$F{codmat}]]></groupExpression>
+	</group>
+	<detail>
+		<band height="3" splitType="Stretch">
+			<textField>
+				<reportElement x="5" y="-15" width="100" height="17" uuid="6f17b628-834e-4efc-8126-4ca341d9ba20"/>
+				<textFieldExpression><![CDATA[$F{codmat1}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="140" y="-18" width="391" height="21" uuid="4ace7d97-c400-41d7-bed4-aea5c15e21b6"/>
+				<subreportParameter name="ParamCodMat1">
+					<subreportParameterExpression><![CDATA[$F{codmat1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/java/reportes/AASubSubRepoMaterias.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RepoAnalitico" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="91335d27-839f-464f-935e-9bb19f56b0d2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="AdapBaseGada"/>
+	<parameter name="ParamDni" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT basegada.alumno.alapynom,
+	basegada.alumnomateria.notafinal,
+	basegada.materia.matnom,
+	basegada.alumnomateria.libro,
+	basegada.alumnomateria.folio,
+	basegada.alumnomateria.fecha,
+	basegada.alumnomateria.situacion
+FROM basegada.alumnomateria
+	INNER JOIN basegada.alumno ON 
+	 basegada.alumnomateria.aldni2 = basegada.alumno.aldni 
+	INNER JOIN basegada.materia ON 
+	 basegada.alumnomateria.codmat2 = basegada.materia.codmat 
+WHERE 
+	 basegada.alumnomateria.aldni2 = $P{ParamDni} 
+	 AND basegada.alumnomateria.notafinal >= 4 
+ORDER BY basegada.materia.anio DESC,
+	basegada.materia.matnom DESC]]>
+	</queryString>
+	<field name="alapynom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="alapynom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alumno"/>
+	</field>
+	<field name="notafinal" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="notafinal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alumnomateria"/>
+	</field>
+	<field name="matnom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="matnom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+	</field>
+	<field name="libro" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="libro"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alumnomateria"/>
+	</field>
+	<field name="folio" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="folio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alumnomateria"/>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fecha"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alumnomateria"/>
+	</field>
+	<field name="situacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="situacion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alumnomateria"/>
+	</field>
+	<variable name="varSituacion" class="java.lang.String">
+		<variableExpression><![CDATA[($F{situacion}.equals("a final")? "Regular": "Libre")]]></variableExpression>
+	</variable>
+	<variable name="Promedio" class="java.lang.Float" calculation="Average">
+		<variableExpression><![CDATA[$F{notafinal}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<pageHeader>
+		<band height="65" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="50" height="50" uuid="32540375-d803-4ca9-81a2-314caddd20b6"/>
+				<imageExpression><![CDATA["/src/main/java/imagenes/Is44 logo.JPG"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="90" y="0" width="230" height="21" uuid="e1d2fb12-dcc3-4a24-acea-5fd447237f25"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Tecnicatura en Análisis de Sistemas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="27" width="180" height="20" uuid="4bcebfc2-612a-469c-af17-f38436d060eb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Analítico de Materias perteneciente a:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="286" y="27" width="100" height="20" uuid="5989e02c-c5f9-45f6-bdf4-3f12115c61f5"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{alapynom}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd &apos;de&apos;  MMMMM &apos;de&apos;  yyyy">
+				<reportElement x="374" y="0" width="181" height="15" uuid="359f6c03-9cef-4eb2-a9b3-addb0705def7"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="210" height="14" uuid="e00abc1a-4b7c-4a3d-ab32-569331ed7141">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="99a35f18-a867-4aef-8cae-042f2c7b897a"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Asignatura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="0" width="62" height="14" uuid="b078db3b-bb91-4ead-9f78-282ec7cbbb94">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7a9791d1-eb04-4909-8d56-d2f75ed66d14"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Calificación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="0" width="50" height="14" uuid="44ae1199-9602-4bc9-be01-8d5becb6c310"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Situación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="345" y="0" width="35" height="14" uuid="11ef138c-f25a-434f-a15c-7c71ec83fac9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="08606815-6e7c-4c6e-a6a7-d6813a1c923a"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[libro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="0" width="36" height="14" uuid="a983d1fd-6560-41cc-bc8c-c1e29decd18d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f76cb6be-915c-4690-be53-d46b83ba66d8"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[folio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="0" width="70" height="14" uuid="da72cace-4ee4-4e3d-ad2c-7deb6aba5a7a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="707b4a26-98b1-4ad3-8313-5f68239bff88"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[fecha]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="551" height="1" uuid="015d9151-9429-470e-829a-811bbcd8137c"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="210" height="14" uuid="8295285c-498b-4f9d-bfc1-5e4e923cf0bb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="99a35f18-a867-4aef-8cae-042f2c7b897a"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{matnom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="0" width="62" height="14" uuid="6aadda26-cd5c-496a-84fe-7631d10a258f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7a9791d1-eb04-4909-8d56-d2f75ed66d14"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{notafinal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="0" width="35" height="14" uuid="b5a84466-73da-4cb3-b364-22b29ec6f9e1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="08606815-6e7c-4c6e-a6a7-d6813a1c923a"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{libro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="384" y="0" width="36" height="14" uuid="c0ba00dc-9c63-4f2f-be16-b5d56728d115">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f76cb6be-915c-4690-be53-d46b83ba66d8"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{folio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yy">
+				<reportElement x="450" y="0" width="70" height="14" uuid="518c91b1-9675-4a1e-8f4f-a75a4fe028fa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="707b4a26-98b1-4ad3-8313-5f68239bff88"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="295" y="0" width="42" height="14" uuid="921fec83-d7c9-4a74-b52c-2e929f6d8738"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{situacion}.equalsIgnoreCase("a final")? "Regular": "Libre")]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="50">
+			<staticText>
+				<reportElement x="10" y="15" width="101" height="21" uuid="c3379919-1b41-40c5-a544-0928c5e9e2bb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Promedio general:]]></text>
+			</staticText>
+			<textField pattern="#,##.00">
+				<reportElement x="117" y="15" width="100" height="21" uuid="34147cc8-008e-421e-9de9-731b0035fba8"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{Promedio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

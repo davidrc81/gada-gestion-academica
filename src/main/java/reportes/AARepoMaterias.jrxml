@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AARepoMaterias" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5e8cac3e-7fa9-419a-b6c6-e4913046cc48">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="AdapBaseGada"/>
+	<parameter name="ParamPlan" class="java.lang.String"/>
+	<parameter name="ParamCodMat" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT basegada.materia.codmat,
+	basegada.materia.matnom,
+	basegada.materia.anio,
+	basegada.materia.plan,
+	basegada.materia.modulos
+FROM basegada.materia
+WHERE basegada.materia.plan=$P{ParamPlan}
+order by basegada.materia.anio,
+	basegada.materia.matnom]]>
+	</queryString>
+	<field name="codmat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codmat"/>
+		<property name="com.jaspersoft.studio.field.label" value="codmat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+		<fieldDescription><![CDATA[código de la materia]]></fieldDescription>
+	</field>
+	<field name="matnom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="matnom"/>
+		<property name="com.jaspersoft.studio.field.label" value="matnom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+		<fieldDescription><![CDATA[nombre de la materia]]></fieldDescription>
+	</field>
+	<field name="anio" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="anio"/>
+		<property name="com.jaspersoft.studio.field.label" value="anio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+		<fieldDescription><![CDATA[año que se cursa 1,2,3 o 4.]]></fieldDescription>
+	</field>
+	<field name="plan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="plan"/>
+		<property name="com.jaspersoft.studio.field.label" value="plan"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+		<fieldDescription><![CDATA[resolución del plan(alfanumérico)]]></fieldDescription>
+	</field>
+	<field name="modulos" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="modulos"/>
+		<property name="com.jaspersoft.studio.field.label" value="modulos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+		<fieldDescription><![CDATA[cantidad de módulos de la materia]]></fieldDescription>
+	</field>
+	<group name="anio">
+		<groupExpression><![CDATA[$F{anio}]]></groupExpression>
+	</group>
+	<group name="ANIO">
+		<groupExpression><![CDATA[$F{anio}]]></groupExpression>
+		<groupHeader>
+			<band height="17">
+				<staticText>
+					<reportElement x="0" y="0" width="50" height="14" uuid="f118f16d-5552-4f39-9d5c-dd8bdf6eb646"/>
+					<text><![CDATA[Año:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="59" y="0" width="100" height="14" uuid="622dd0ad-5e9c-4871-9153-f37d12d6c980"/>
+					<textFieldExpression><![CDATA[$F{anio}+"°"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="82" splitType="Stretch">
+			<staticText>
+				<reportElement x="130" y="2" width="250" height="30" uuid="606ef23d-c8ad-4de8-a69e-e1c38e4c3c9b"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Listado de Materias de ASI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="40" width="40" height="21" uuid="1eb2f23d-8910-4180-8877-f902821a574f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Plan:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="250" y="40" width="100" height="20" uuid="e2075a90-ba2e-45d2-9399-a7a49362f28c"/>
+				<textFieldExpression><![CDATA[$F{plan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="81" height="14" uuid="bdf40160-ea9e-493a-a856-8665bf9e195e"/>
+				<text><![CDATA[Cod. Mat.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="341" height="14" uuid="0ac986fb-589f-4de3-87e7-44c6c85b82f9"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="0" width="81" height="14" uuid="324debed-7bf5-4940-beed-024d676b9719"/>
+				<text><![CDATA[Módulos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="44" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="530" height="20" uuid="f42664e7-a0c8-455a-8297-956fa7f9bf94"/>
+			</rectangle>
+			<textField>
+				<reportElement x="6" y="3" width="75" height="14" uuid="852abc37-15cf-4f3e-866a-ecdc2611bad5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94efe0bd-4d20-498c-bedd-49ded37d8f88"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{codmat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="102" y="4" width="348" height="13" uuid="16f02655-63e4-42b0-91f1-9c02a47fb4bf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="808356ba-b4a3-43f4-8210-cecfa372a886"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{matnom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="467" y="1" width="60" height="18" uuid="b086df52-4738-4136-8dfa-d99c8fb9027f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="72c9b04f-c901-4554-a145-70443d246528"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{modulos}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="10" y="22" width="510" height="20" uuid="475c7bc8-ebea-4889-8a85-e2f307923a0c"/>
+				<subreportParameter name="ParamCodMat">
+					<subreportParameterExpression><![CDATA[$F{codmat}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/java/reportes/AASunRepoMaterias.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RepoPromedioTecnicatura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="296c6d1f-2a3f-4841-b858-805f7428bee9">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="327"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="664"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="AdapMesaExamen"/>
+	<parameter name="ParamAnioDesde" class="java.lang.Integer"/>
+	<parameter name="ParamAnioHasta" class="java.lang.Integer"/>
+	<parameter name="ParamFechaCursada" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT mesaexamen.alumno.aldni,
+	mesaexamen.alumno.alapynom,
+	avg( notafinal),
+	count(*)
+FROM mesaexamen.alumnomateria
+	INNER JOIN mesaexamen.alumno ON 
+	 mesaexamen.alumnomateria.aldni2 = mesaexamen.alumno.aldni 
+	INNER JOIN mesaexamen.materia ON 
+	 mesaexamen.alumnomateria.codmat2 = mesaexamen.materia.codmat 
+WHERE 
+	 mesaexamen.alumnomateria.notafinal >= 4 
+	 AND mesaexamen.alumnomateria.fechadecursada BETWEEN $P{ParamAnioDesde} AND $P{ParamAnioHasta} 
+	 AND mesaexamen.materia.anio BETWEEN '1' AND '3' 
+	 AND mesaexamen.alumnomateria.codmat2 NOT IN (SELECT materia.codmat
+FROM materia
+	inner join mesaexamen.alumnomateria ON 
+	 materia.codmat = mesaexamen.alumnomateria.codmat2 
+WHERE 
+	 materia.anio = '4' 
+	 AND mesaexamen.alumnomateria.fechadecursada = $P{ParamFechaCursada} )
+GROUP BY mesaexamen.alumno.aldni]]>
+	</queryString>
+	<field name="aldni" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="aldni"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alumno"/>
+	</field>
+	<field name="alapynom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="alapynom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alumno"/>
+	</field>
+	<field name="avg( notafinal)" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="avg( notafinal)"/>
+	</field>
+	<field name="count(*)" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="count(*)"/>
+	</field>
+	<sortField name="count(*)" order="Descending"/>
+	<sortField name="avg( notafinal)" order="Descending"/>
+	<group name="aldni">
+		<groupExpression><![CDATA[$F{aldni}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="70" height="70" uuid="f75f37bb-4755-4c53-b4e6-9e8db4bf9506"/>
+				<imageExpression><![CDATA["D:/eclipse Mars win32/Prácticas/Base de Datos/pruebaMesaExamen/src/main/java/imagenes/Is44 logo.JPG"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="100" y="20" width="220" height="31" uuid="a1e61b99-62a5-4fe5-b905-48d280f8bb2c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Mejores promedios de la carrera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="20" width="40" height="31" uuid="0f504f53-546e-4709-abcd-b9ed6da96e9c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Año:]]></text>
+			</staticText>
+			<textField pattern="yyyy">
+				<reportElement x="450" y="20" width="71" height="31" uuid="6cb87df3-9861-4f25-8d47-9b9f068911ee"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="0" width="77" height="16" uuid="c64b17ea-20a8-4b51-907a-a1abae47fc78">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6084228b-5bba-4ae8-904c-1b938597af13"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Dni]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="89" y="0" width="281" height="16" uuid="c23a33fc-4723-4df9-b38a-a3e83012b453">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b0f96a95-619f-4355-8c34-77fd8b1e5dab"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Apellido y nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="383" y="0" width="47" height="16" uuid="fbc7d45a-479c-4e87-8177-add2b498e941"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Promedio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="0" width="101" height="16" uuid="04ab64ff-7eb4-47dc-a896-7e26202692e3"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Cantidad de Materias]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="0" width="77" height="16" uuid="59fdccaf-6a6a-47a9-acf1-f544d64418d0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6084228b-5bba-4ae8-904c-1b938597af13"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{aldni}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="89" y="0" width="281" height="16" uuid="a119b117-dbd5-4e98-b258-71e1c4eca190">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b0f96a95-619f-4355-8c34-77fd8b1e5dab"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{alapynom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="60" height="16" uuid="fa9b5d43-477f-40c0-8175-0631adc9a1b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{avg( notafinal)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="86" height="16" uuid="0e5007d4-1c12-475f-9833-d9e25bfbf731"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{count(*)}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

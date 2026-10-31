@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaAlumnos" pageWidth="1008" pageHeight="612" orientation="Landscape" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eed5e3ee-dbd3-4cd4-8bb4-b5bd4b2d6f5e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="AdapBaseGada"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="425"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="566"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Dataset1" uuid="53b09565-7522-4332-9292-fb3e4aaf99bb">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="AdapBaseGada"/>
+		<parameter name="ParamAnioCursada" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[$P{ParamAnioCursada}]]></defaultValueExpression>
+		</parameter>
+		<parameter name="ParamCodMat" class="java.lang.String"/>
+		<parameter name="ParamTablaCodMat" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT basegada.alumno.alapynom
+FROM  basegada.alumnomateria
+	INNER JOIN  basegada.alumno ON 
+	  basegada.alumnomateria.aldni2 =  basegada.alumno.aldni
+	 where  basegada.alumnomateria.codmat2= $P{ParamCodMat} 
+	 and  basegada.alumnomateria.fechadecursada=$P{ParamAnioCursada}
+ORDER BY  basegada.alumno.alapynom]]>
+		</queryString>
+		<field name="alapynom" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="alapynom"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="alumno"/>
+		</field>
+	</subDataset>
+	<parameter name="ParamAnioCursada" class="java.lang.Integer"/>
+	<parameter name="ParamCodMat" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT basegada.materia.codmat,
+	basegada.materia.matnom,
+	basegada.materia.anio,
+	basegada.alumnomateria.fechadecursada
+FROM basegada.alumnomateria
+	INNER JOIN basegada.materia ON 
+	 basegada.alumnomateria.codmat2 = basegada.materia.codmat 
+	INNER JOIN basegada.alumno ON 
+	 basegada.alumnomateria.aldni2 = basegada.alumno.aldni 
+WHERE 
+	 basegada.alumnomateria.fechadecursada = $P{ParamAnioCursada} 
+	 AND basegada.alumnomateria.codmat2 = $P{ParamCodMat} 
+GROUP BY basegada.materia.matnom
+ORDER BY basegada.materia.anio DESC,
+	basegada.materia.matnom DESC]]>
+	</queryString>
+	<field name="codmat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="codmat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+	</field>
+	<field name="matnom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="matnom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+	</field>
+	<field name="anio" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="anio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+	</field>
+	<field name="fechadecursada" class="java.lang.Integer"/>
+	<group name="materia">
+		<groupExpression><![CDATA[$F{matnom}]]></groupExpression>
+		<groupHeader>
+			<band height="18">
+				<staticText>
+					<reportElement x="91" y="-1" width="40" height="16" uuid="79591894-a9e9-418f-92e4-dac4d089766b"/>
+					<text><![CDATA[Materia:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="134" y="-1" width="350" height="16" uuid="3d832fec-9700-4480-a3fd-2178a9a71d40"/>
+					<textFieldExpression><![CDATA[$F{matnom}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="492" y="-1" width="50" height="16" uuid="6bd083e2-28a9-4bac-a24c-93c98499afb5"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<text><![CDATA[Profesor:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="5" y="-1" width="32" height="16" uuid="61ca0513-6a63-4b9f-ba92-fb1ddc7a9b83"/>
+					<text><![CDATA[Curso:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="37" y="-1" width="41" height="16" uuid="4028a9f5-88fe-413b-935a-6c8fa403e049"/>
+					<textFieldExpression><![CDATA[$F{anio}+"°"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="900" y="-1" width="30" height="16" uuid="aca0e0b4-457e-454c-8064-956fcd4a6a9e"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$P{ParamAnioCursada}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="872" y="-1" width="27" height="16" uuid="411f5b0b-e161-48a2-a4d5-51c292062d05"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<text><![CDATA[Año:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="544" y="-1" width="281" height="16" uuid="e6d816cd-6e0b-4e15-a981-62a550fd231e"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[..........................................................................................]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="46" splitType="Stretch">
+			<componentElement>
+				<reportElement x="0" y="5" width="800" height="40" uuid="35e0fd81-842c-46b1-943c-13091e260f66">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					<property name="net.sf.jasperreports.export.headertoolbar.table.name" value=""/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Dataset1" uuid="bf86177a-a958-47c6-ac47-eaa4a8f744ea">
+						<datasetParameter name="ParamCodMat">
+							<datasetParameterExpression><![CDATA[$F{codmat}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="ParamAnioCursada">
+							<datasetParameterExpression><![CDATA[$F{fechadecursada}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="20" uuid="dc557d9b-8c45-4211-ac3e-4422f39bbac9">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14">
+							<textField>
+								<reportElement x="0" y="0" width="20" height="14" uuid="65e79bc6-b3da-415e-a766-fde16a14c6de"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="180" uuid="dec39f90-ad36-482e-9497-066ba67d5cd8">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="180" height="14" uuid="4f313d5e-f543-4e34-bf37-b1bb709071f2"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Apellido y nombre]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="14">
+							<textField>
+								<reportElement x="0" y="0" width="180" height="14" uuid="0b74f2ea-968e-4e30-a8fb-425bdcb573bb"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[" "+$F{alapynom}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="20" uuid="ab093b23-e756-4504-b37c-726bc7aad87b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_TH" height="14" rowSpan="1">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="6a68e1ea-eb31-48db-a57d-4e02d80ca797">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="5fe6ce4b-69e4-4ebe-bdde-9cdb30a40174">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="b8290aac-d430-4f04-8a3c-7c72873121d2">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="d9e74e98-f8ed-4c46-9d35-81ba80f30224">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="8485566e-726e-4ac5-8216-a8495051e5cd">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="f0628cce-6e20-4575-94af-3177f478b932">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="9dc5e949-f6aa-4dcb-bfb6-2fc15de7c8f3">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="18350dd0-8420-4ede-9941-6ca44bd65045">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column11"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="b6ab1779-3628-456c-b264-1e983a0367c6">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column12"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="f8a3b3ec-4df9-418a-b309-8b61e2e02fe6">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column13"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="d83abc5c-1d6f-405a-914e-7ef05c7a2746">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column14"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="345d90b3-0941-4daa-87c9-6fedf9e379ec">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column15"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="3fe29dd4-7d43-4cc7-aa08-a62ee338eb4b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column16"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="15a7ecb5-3295-4eea-a816-5194cb5b4158">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column17"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="72c7219d-9d66-497d-80b6-01dfc1631b2f">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column18"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="141c9de4-7310-4d15-a2cf-95d4250963f8">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column19"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="b66b958f-9d07-4a89-b45d-bef255ba1fdf">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column20"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="85b70fef-7f37-4d09-b874-e5cd332018fd">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column21"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="76a2a8fe-76ce-4fb1-b4f5-ce78aa5f0490">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column22"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="38de21ac-6542-4a59-88e0-bf373e7dd308">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column23"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="52f6f0b0-1f6c-4fa7-aa08-94b1584fb2b9">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column24"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="a8a19758-da5d-45f6-a663-f694821f3457">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column25"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="b728018a-9a7c-4534-adbe-2da392e889c9">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column26"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="2d6f32e1-bdef-4829-8d6d-9925f1f5a074">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column27"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="5776d41a-8853-4ea7-8bdb-bffd4fe1217e">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column28"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="df891d96-e618-466b-bb67-686f040a6628">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column29"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="7e51ed84-a6c6-4cb7-8b14-8def6b53ef18">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column30"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="53b52574-e235-4ab4-8133-b89a04f33eb6">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column31"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="b59313f0-d81c-407a-b721-79d9fae8e3be">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column32"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="1ab90dad-8cf5-4f5e-8034-7112a62e31f4">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column33"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="e0ad1a99-59d3-4f56-bbd5-bf5196a9779a">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column34"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="ea69c864-3a57-43e9-b650-41c9987053f8">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column35"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="cd13e3f4-0941-4a3e-bebf-66daf07a9a26">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column36"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="255161b8-eba4-464c-b9e3-14ed16c81cf3">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column37"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="4e5ef493-f103-450d-a64a-a79e2bb2d945">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column38"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="17399c13-36da-4f0d-8979-95d27d1b4507">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column39"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+					<jr:column width="20" uuid="171544f7-c0bd-4e8c-b2f7-76a8bf1fff19">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column40"/>
+						<jr:columnHeader style="Table_CH" height="14" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="14"/>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="28">
+			<break>
+				<reportElement x="0" y="16" width="780" height="1" isPrintWhenDetailOverflows="true" printWhenGroupChanges="materia" uuid="580a6d9a-f602-4fb6-abc7-8a8e62018d9e"/>
+			</break>
+		</band>
+	</detail>
+</jasperReport>

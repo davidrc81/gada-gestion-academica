@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AASubSubRepoMaterias" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="173efea1-b009-4834-908b-2bae8086954f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="AdapBaseGada"/>
+	<parameter name="ParamCodMat1" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT basegada.materia.matnom,
+	basegada.materia.codmat
+FROM basegada.materia
+WHERE basegada.materia.codmat= $P{ParamCodMat1}]]>
+	</queryString>
+	<field name="matnom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="matnom"/>
+		<property name="com.jaspersoft.studio.field.label" value="matnom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+		<fieldDescription><![CDATA[nombre de la materia]]></fieldDescription>
+	</field>
+	<field name="codmat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codmat"/>
+		<property name="com.jaspersoft.studio.field.label" value="codmat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+		<fieldDescription><![CDATA[código de la materia]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="-9" width="420" height="20" uuid="e4c6601f-7646-46fa-a9f7-46608c3ddead"/>
+				<textFieldExpression><![CDATA[$F{matnom}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

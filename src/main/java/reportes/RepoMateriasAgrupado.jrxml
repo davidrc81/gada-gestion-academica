@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RepoMateriasAgrupado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1cbb0ed2-755b-4b05-a2c1-6e22d13f86b3">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="269"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="724"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="AdapGada"/>
+	<parameter name="ParamPlan" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT basegada.materia.codmat,
+	basegada.materia.matnom,
+	basegada.materia.anio,
+	basegada.materia.plan,
+	basegada.materia.modulos,
+	basegada.materiacorrelativa.codmat1
+FROM basegada.materiacorrelativa
+	INNER JOIN basegada.materia ON 
+	 basegada.materiacorrelativa.codmatcorr = basegada.materia.codmat
+where basegada.materia.plan = $P{ParamPlan}
+order by basegada.materia.anio,basegada.materia.matnom]]>
+	</queryString>
+	<field name="codmat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="codmat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+	</field>
+	<field name="matnom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="matnom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+	</field>
+	<field name="anio" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="anio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+	</field>
+	<field name="plan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="plan"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+	</field>
+	<field name="modulos" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="modulos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materia"/>
+	</field>
+	<field name="codmat1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="codmat1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="materiacorrelativa"/>
+	</field>
+	<group name="anio">
+		<groupExpression><![CDATA[$F{anio}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<staticText>
+					<reportElement x="10" y="2" width="51" height="15" uuid="d3b0b379-7f02-4e09-84d2-b723ff07525b"/>
+					<textElement>
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Año:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="70" y="2" width="100" height="15" uuid="cf8093da-5979-4732-ac63-f4faafe7ba80"/>
+					<textFieldExpression><![CDATA[$F{anio}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="20" width="80" height="70" uuid="15c6aece-e81e-43d7-8bee-c9df814df8c8"/>
+				<imageExpression><![CDATA["D:/eclipse Mars win32/Prácticas/Base de Datos/pruebaMesaExamen/src/main/java/imagenes/Is44 logo.JPG"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="130" y="2" width="250" height="30" uuid="3223e7e3-3fb9-4558-8730-f31037585304"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Listado de Materias de ASI]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="200" y="4" width="40" height="21" uuid="6b34b852-f5c2-4df3-b8ff-42ccbfd5d119"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Plan:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="250" y="4" width="55" height="21" uuid="5c21a573-6dfb-420e-9226-84e72ad05b1d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{plan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="2" width="50" height="21" uuid="b71785b3-ab30-4af3-b2b1-d4a3cd84e175"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Cod Mat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="2" width="320" height="21" uuid="740acb68-c17d-4386-9732-d942db9ed606"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="502" y="2" width="48" height="21" uuid="c5355292-1c73-4d99-838a-3e33c2703216"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Módulos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="54" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="2" width="550" height="18" backcolor="#FFFFFF" uuid="e8f9208d-3a54-4291-b7ab-6464dd60e0b3"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="5" width="52" height="14" uuid="6b59ef83-bc88-4114-8aeb-1f4a9970677e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codmat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="5" width="397" height="14" uuid="6736344c-8eb6-4920-997e-cac3a17119e0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{matnom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="508" y="5" width="41" height="14" uuid="0c225527-daed-4633-807c-d3638fb46c62"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{modulos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="24" width="100" height="30" uuid="19405dd2-00bc-434e-852f-5266a6720d81">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a0957cce-3097-4352-8ed1-75305194aa8f"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{codmat1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
